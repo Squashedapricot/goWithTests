@@ -1,26 +1,28 @@
 package main
 
-import (
-	"math"
-)
+import "math"
 
-type Rectangle struct {
-	Width  float64
-	Height float64
+type Shape interface {
+	Area() float64
 }
 
-func (r Rectangle) Area() float64 {
-	return r.Height * r.Width
+type Rectangle struct {
+	length  float64
+	breadth float64
 }
 
 func (r Rectangle) Perimeter() float64 {
-	return 2 * (r.Height + r.Width)
+	return 2 * (r.breadth + r.length)
+}
+
+func (r Rectangle) Area() float64 {
+	return (r.breadth * r.length)
 }
 
 type Circle struct {
-	Radius float64
+	radius float64
 }
 
-func (c Circle) Area() float64 {
-	return math.Pi * c.Radius * c.Radius
+func (c Circle) Perimeter() float64 {
+	return math.Pi * c.radius * c.radius
 }

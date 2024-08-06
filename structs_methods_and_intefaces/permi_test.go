@@ -1,20 +1,34 @@
 package main
 
 import (
+	"math"
 	"testing"
 )
 
 func TestPerimeter(t *testing.T) {
-	rectangle := Rectangle{10.0, 10.0}
-	got := rectangle.Perimeter()
-	want := 40.0
-
-	if got != want {
-		t.Errorf("expected %f got %f", want, got)
+	checkPerimeter := func(t testing.TB, got, want float64) {
+		if got != want {
+			t.Helper()
+			t.Errorf("expected %g got %g", want, got)
+		}
 	}
+	t.Run("rectangle", func(t *testing.T) {
+		rectangle := Rectangle{10.0, 10.0}
+		got := rectangle.Perimeter()
+		want := 40.0
+		checkPerimeter(t, got, want)
+	})
+	t.Run("circle", func(t *testing.T) {
+		circle := Circle{10.0}
+		got := circle.Perimeter()
+		want := math.Pi * 10.0 * 10.0
+		if got != want {
+			t.Errorf("expected %g got %g", want, got)
+		}
+	})
 }
 
-func TestArea(t *testing.B) {
+func TestArea(t *testing.T) {
 	checkArea := func(t testing.TB, shape Shape, want float64) {
 		t.Helper()
 		got := shape.Area()
@@ -22,12 +36,9 @@ func TestArea(t *testing.B) {
 			t.Errorf("expected %g got %g", want, got)
 		}
 	}
-	t.Run("rectangles", func(t *testing.T) {
-		rectangle := Rectangle{12, 6}
-		checkArea(t, rectangle, 72.0)
-	})
-	t.Run("circles", func(t *testing.T) {
-		circle := Circle{10}
-		checkArea(t, circle, 314.1592653589793)
+	t.Run("rectangle", func(t *testing.T) {
+		rectangle := Rectangle{10.0, 10.0}
+		want := 100.0
+		checkArea(t, rectangle, want)
 	})
 }
