@@ -1,3 +1,3 @@
-module wallet
+module pointers_and_errors
 
-go 1.22.5
+go 1.23.1
